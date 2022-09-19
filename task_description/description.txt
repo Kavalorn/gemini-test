@@ -1,0 +1,16 @@
+1. Table with all accounts (GET `/accounts`)
+    1. Columns: username (sorted), password (hidden)
+    2. Actions:
+        1. delete account (DELETE `/accounts/{account}`) with confirm popUp window
+        2. enable/disable status (PUT `/accounts/switch`) with confirm popUp window
+        3. edit account (PUT `/accounts`) with modal window
+    3. Every row is extendable with extra info, such as all proxies and userAgent
+2. Modal window for create, edit account info (POST/PUT `/accounts`)
+    1. username, password - inputText
+    2. userAgent - textArea
+    3. cookies - custom form:
+        1. support several domains
+        2. expiration time can be set as datetime and as max-age as well
+        3. default path is "/"
+        4. Name and Value are mandatory fields
+    4. proxies - multiSelect input (GET `/proxies/simple`)
