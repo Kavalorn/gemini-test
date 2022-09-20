@@ -392,7 +392,7 @@ export const Cookies = ({ cookies, className = "" }) => {
     <div>
       <span
         onClick={toggleForm}
-        className="border px-2 py-0.5 mr-4 rounded-md cursor-pointer text-xs hover:text-white hover:bg-slate-600 ml-3"
+        className="block w-fit mb-3 border px-2 py-0.5 mr-4 rounded-md cursor-pointer text-xs hover:text-white hover:bg-slate-600 ml-3"
       >
         add domain
       </span>

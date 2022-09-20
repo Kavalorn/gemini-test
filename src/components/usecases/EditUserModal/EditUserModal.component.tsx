@@ -8,6 +8,16 @@ import { Alert } from '../../common/Alert/Alert.component';
 import { Cookies } from '../Cookies/Cookies.component';
 import _ from 'lodash';
 import Select from 'react-select';
+import { v4 as uuidv4 } from 'uuid';
+
+const initialValues: Account = {
+    "_id": uuidv4(),
+    "password": "",
+    "proxies": [],
+    "cookies": {},
+    "userAgent": "",
+    "username": ""
+  }
 
 export const Proxies = (props: FieldProps) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +49,7 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
         <>
             {children({ toggleOpened })}
             <Formik
-                initialValues={item}
+                initialValues={item ? item : initialValues}
                 validationSchema={Yup.object().shape({
                     username: Yup.string().required('field username should not be empty'),
                     password: Yup.string().required('field password should not be empty'),
@@ -57,7 +67,7 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
                                 <span className="sr-only">Close modal</span>
                             </button>
                             <div className="py-6 px-6 lg:px-8">
-                                <h3 className="mb-4 text-xl font-medium text-gray-900 ">Edit account</h3>
+                                <h3 className="mb-4 text-xl font-medium text-gray-900 ">{`${item ? "Edit" : "Add"}`} account</h3>
                                 <Form className="space-y-6">
                                     <Field name="username">
                                         {({field}: FieldProps) => (
