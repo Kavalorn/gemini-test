@@ -10,6 +10,8 @@ import { PasswordCell } from './PasswordCell.component'
 import cn from 'classnames'
 import { Drawer, DrawerItem } from '../../common/Table/TableRow/Drawer/Drawer.component'
 import { Account, GetAllAccountsResDto } from '../../../API/types'
+import { ConfirmUserDeleteModal } from '../ConfirmUserDeleteModal/ConfirmUserDeleteModal.component'
+import { ConfirmUserStatusModal } from '../ConfirmUserStatusModal/ConfirmUserStatusModal.component'
 export const AccountsTable = () => {
     return (
         <Table
@@ -34,13 +36,17 @@ export const AccountsTable = () => {
                     return (
                         <div className='flex flex-row'>
                             <Action label="switch">
-                                <Switch isChecked={!item.disabled} onChange={() => { }} className="" />
+                            <ConfirmUserStatusModal>
+                                {({toggleOpened}) => <Switch isChecked={!item.disabled} onChange={toggleOpened} className="" />}
+                            </ConfirmUserStatusModal>
                             </Action>
                             <Action label="edit">
                                 <img src={pencilSvg} alt="" className='h-6 m-auto' />
                             </Action>
                             <Action label="delete">
-                                <img src={trashSvg} alt="" className='h-6 m-auto' />
+                                <ConfirmUserDeleteModal>
+                                    {({toggleOpened}) => <img src={trashSvg} alt="" className='h-6 m-auto' onClick={() => toggleOpened()} />}
+                                </ConfirmUserDeleteModal>
                             </Action>
                             <Action label="expand" onClick={toggleExpand}>
                                 <img src={chevronSvg} alt="" className={cn('h-6 m-auto', {

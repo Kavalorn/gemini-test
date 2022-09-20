@@ -1,6 +1,5 @@
-import { ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 
-export interface ModalProps {
-    isOpen: boolean,
-    content: ReactNode
+export interface ModalProps extends PropsWithChildren {
+    isOpen: boolean
 }

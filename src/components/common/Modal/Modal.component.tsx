@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom';
 import { ModalProps } from './Modal.props'
 
-export const Modal = ({isOpen = false, content}: ModalProps) => {
+export const Modal = ({isOpen = false, children}: ModalProps) => {
 
   return isOpen ? ReactDOM.createPortal(
 (<div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -11,7 +11,7 @@ export const Modal = ({isOpen = false, content}: ModalProps) => {
   <div className="fixed inset-0 z-10 overflow-y-auto">
     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
       <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-        {content}
+        {children}
       </div>
     </div>
   </div>
