@@ -6,7 +6,7 @@ export const proxiesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
   tagTypes: ["proxies"],
   endpoints: (builder) => ({
-    getProxies: builder.query<GetProxiesResDto, undefined>({
+    getProxies: builder.query<GetProxiesResDto, void>({
       query: () => ({
         url: `/proxies/simple`,
         method: "GET",

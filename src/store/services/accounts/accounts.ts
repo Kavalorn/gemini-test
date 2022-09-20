@@ -55,6 +55,7 @@ export const accountsApi = createApi({
 
 
 export const { 
+  useSwitchAccountMutation,
   useGetAllAccountsQuery,
   useAddAccountMutation,
   useUpdateAccountMutation,

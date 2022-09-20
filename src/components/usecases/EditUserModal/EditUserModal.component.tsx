@@ -9,6 +9,7 @@ import _ from 'lodash';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import { Account } from '../../../store/services/accounts/types';
+import { useGetProxiesQuery } from '../../../store/services/proxies/proxies';
 
 const initialValues: Account = {
     "_id": uuidv4(),
@@ -20,14 +21,13 @@ const initialValues: Account = {
   }
 
 export const Proxies = (props: FieldProps) => {
-    const [isLoading, setIsLoading] = useState(false);
-    const [options, setOptions] = useState([]);
+    const {data = [], isLoading} = useGetProxiesQuery()
 
     return (
     <Select
         closeMenuOnSelect={false}
         isMulti
-        options={options}
+        options={data.map(({label}) => ({label, value: label}))}
         value={props.field.value.map((value: string) => ({label: value, value}))}
         onChange={(newValue) => props.form.setFieldValue('proxies', newValue.map(({value}) => value))}
         isLoading={isLoading}

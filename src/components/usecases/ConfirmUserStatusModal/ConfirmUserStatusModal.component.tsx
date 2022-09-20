@@ -1,14 +1,21 @@
 import React, { useState } from 'react'
+import { useSwitchAccountMutation } from '../../../store/services/accounts/accounts';
 import { Modal } from '../../common/Modal/Modal.component';
 import { ConfirmUserStatusModalProps } from './ConfirmUserStatusModal.props';
 
-export const ConfirmUserStatusModal = ({children}: ConfirmUserStatusModalProps) => {
+export const ConfirmUserStatusModal = ({children, item}: ConfirmUserStatusModalProps) => {
     const [isOpened, setIsOpened] = useState(false);
     const toggleOpened = () => setIsOpened(!isOpened);
 
+    const [ switchAccount ] = useSwitchAccountMutation();
+
     const handleConfirm = () => {
-      console.log('ConfirmUserStatusModal confirm');
-      toggleOpened()
+      switchAccount({
+        disable: !item.disabled,
+        username: item.username
+      }).then(() => {
+        toggleOpened()
+      })
     }
 
   return (
@@ -25,7 +32,7 @@ export const ConfirmUserStatusModal = ({children}: ConfirmUserStatusModalProps) 
               </svg>
             </div>
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">Changing user status</h3>
+              <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title" onClick={() => console.log(item.username)}>Changing user status</h3>
               <div className="mt-2">
                 <p className="text-sm text-gray-500">Are you sure you want to change status for this user?</p>
               </div>

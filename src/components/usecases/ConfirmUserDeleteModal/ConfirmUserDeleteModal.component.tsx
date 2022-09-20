@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
+import { useDeleteAccountMutation } from '../../../store/services/accounts/accounts';
 import { Modal } from '../../common/Modal/Modal.component';
 import { ConfirmUserDeleteModalProps } from './ConfirmUserDeleteModal.props';
 
-export const ConfirmUserDeleteModal = ({children}: ConfirmUserDeleteModalProps) => {
+export const ConfirmUserDeleteModal = ({children, accountId}: ConfirmUserDeleteModalProps) => {
     const [isOpened, setIsOpened] = useState(false);
     const toggleOpened = () => setIsOpened(!isOpened);
+    
+    const [deleteAccount, { error, isLoading }] = useDeleteAccountMutation()
 
     const handleConfirm = () => {
-      console.log('ConfirmUserDeleteModal confirm');
-      toggleOpened()
+      deleteAccount({accountId}).then(() => {
+        toggleOpened()
+      })
     }
 
   return (

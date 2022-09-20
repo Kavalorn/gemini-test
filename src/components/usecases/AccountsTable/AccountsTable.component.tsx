@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Switch } from '../../common/Switch/Switch.component'
 import { Table } from '../../common/Table/Table.component'
 import accounts from '../../../samples/accounts.json'
@@ -14,11 +14,13 @@ import { ConfirmUserStatusModal } from '../ConfirmUserStatusModal/ConfirmUserSta
 import { EditUserModal } from '../EditUserModal/EditUserModal.component'
 import { GetAllAccountsResDto } from '../../../store/services/accounts/types'
 import { useGetAllAccountsQuery } from '../../../store/services/accounts/accounts'
+import _ from 'lodash'
 export const AccountsTable = () => {
-    const {data = [], isLoading} = useGetAllAccountsQuery();
-    return (
+    const {data, isLoading} = useGetAllAccountsQuery();
+
+    return isLoading ? <div>loading...</div> : (
         <Table
-            items={data}
+            items={data || []}
             sortRows={(a, b) => a.username.toLocaleLowerCase() >= b.username.toLocaleLowerCase() ? 1 : -1}
             headers={{
                 username: "Username",
@@ -39,17 +41,17 @@ export const AccountsTable = () => {
                     return (
                         <div className='flex flex-row'>
                             <Action label="switch">
-                                <ConfirmUserStatusModal>
-                                    {({ toggleOpened }) => <Switch isChecked={!item.disabled} onChange={toggleOpened} className="" />}
+                                <ConfirmUserStatusModal item={_.cloneDeep(item)}>
+                                    {({ toggleOpened }) => <Switch isChecked={!item.disabled} onChange={() => toggleOpened()} />}
                                 </ConfirmUserStatusModal>
                             </Action>
                             <Action label="edit">
                                 <EditUserModal item={item}>
-                                    {({ toggleOpened }) => <img src={pencilSvg} alt="" className='h-6 m-auto' onClick={toggleOpened} />}
+                                    {({ toggleOpened }) => (<img src={pencilSvg} alt="" className='h-6 m-auto' onClick={() => toggleOpened()} />)}
                                 </EditUserModal>
                             </Action>
                             <Action label="delete">
-                                <ConfirmUserDeleteModal>
+                                <ConfirmUserDeleteModal accountId={item._id}>
                                     {({ toggleOpened }) => <img src={trashSvg} alt="" className='h-6 m-auto' onClick={() => toggleOpened()} />}
                                 </ConfirmUserDeleteModal>
                             </Action>
