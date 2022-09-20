@@ -4,10 +4,10 @@ import { TableRow } from './TableRow/TableRow.component'
 import { TableHead } from './TableHead/TableHead.component'
 import { GenericObject, TableProps } from './Table.props'
 
-export const Table = <T extends GenericObject>({headers, items, customHandlers, className, ...rest}: TableProps<T>) => {
+export const Table = <T extends GenericObject>({headers, items, customHandlers, drawer = () => null, className, ...rest}: TableProps<T>) => {
 
   const renderRows = () => items.map((item, index) => {
-      return <TableRow item={item} headers={headers} customHandlers={customHandlers} className={cn({
+      return <TableRow item={item} headers={headers} customHandlers={customHandlers} drawer={drawer} className={cn({
         "bg-gray-50": !(index % 2)
       })} />
   })

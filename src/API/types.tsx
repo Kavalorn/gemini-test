@@ -1,4 +1,4 @@
-export interface GetAllAccountsResDto extends Array<Account> {}
+export interface GetAllAccountsResDto extends Array<Account & {disabled: boolean}> {}
 
 export interface AddAccountReqDto extends Account {}
 export interface AddAccountResDto extends Account {
