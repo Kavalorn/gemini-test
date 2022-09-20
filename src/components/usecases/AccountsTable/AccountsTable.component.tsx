@@ -9,14 +9,16 @@ import { Action } from '../../common/Action/Action.component'
 import { PasswordCell } from './PasswordCell.component'
 import cn from 'classnames'
 import { Drawer, DrawerItem } from '../../common/Table/TableRow/Drawer/Drawer.component'
-import { Account, GetAllAccountsResDto } from '../../../API/types'
 import { ConfirmUserDeleteModal } from '../ConfirmUserDeleteModal/ConfirmUserDeleteModal.component'
 import { ConfirmUserStatusModal } from '../ConfirmUserStatusModal/ConfirmUserStatusModal.component'
 import { EditUserModal } from '../EditUserModal/EditUserModal.component'
+import { GetAllAccountsResDto } from '../../../store/services/accounts/types'
+import { useGetAllAccountsQuery } from '../../../store/services/accounts/accounts'
 export const AccountsTable = () => {
+    const {data = [], isLoading} = useGetAllAccountsQuery();
     return (
         <Table
-            items={accounts as unknown as GetAllAccountsResDto}
+            items={data}
             sortRows={(a, b) => a.username.toLocaleLowerCase() >= b.username.toLocaleLowerCase() ? 1 : -1}
             headers={{
                 username: "Username",

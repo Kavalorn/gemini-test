@@ -7,7 +7,7 @@ export const accountsApi = createApi({
   tagTypes: ['accounts'],
   endpoints: (builder) => ({
 
-    getAllAccounts: builder.query<GetAllAccountsResDto, string>({
+    getAllAccounts: builder.query<GetAllAccountsResDto, void>({
       query: () => ({
         url: `/accounts`,
         method: "GET",
@@ -42,7 +42,7 @@ export const accountsApi = createApi({
       invalidatesTags: ['accounts'],
     }),
 
-    deleteAccount: builder.mutation<undefined, {accountId: string}>({
+    deleteAccount: builder.mutation<void, {accountId: string}>({
       query: ({accountId}) => ({
         url: `/accounts/${accountId}`,
         method: "DELETE",
