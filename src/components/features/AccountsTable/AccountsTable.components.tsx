@@ -14,6 +14,7 @@ export const AccountsTable = () => {
     return (
         <Table
             items={accounts as unknown as GetAllAccountsResDto}
+            sortRows={(a, b) => a.username.toLocaleLowerCase() >= b.username.toLocaleLowerCase() ? 1 : -1}
             headers={{
                 username: "Username",
                 password: "Password",

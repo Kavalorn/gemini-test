@@ -3,6 +3,7 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
 
 export interface TableProps<T> extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  sortRows?: (a: T, b: T) => number
   headers: { [key: string]: string }
   items: T[]
   customHandlers?: CustomHandlers<T>
