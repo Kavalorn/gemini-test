@@ -7,6 +7,24 @@ import * as Yup from 'yup'
 import { Alert } from '../../common/Alert/Alert.component';
 import { Cookies } from '../Cookies/Cookies.component';
 import _ from 'lodash';
+import Select from 'react-select';
+
+export const Proxies = (props: FieldProps) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [options, setOptions] = useState([]);
+
+    return (
+    <Select
+        closeMenuOnSelect={false}
+        isMulti
+        options={options}
+        value={props.field.value.map((value: string) => ({label: value, value}))}
+        onChange={(newValue) => props.form.setFieldValue('proxies', newValue.map(({value}) => value))}
+        isLoading={isLoading}
+        placeholder={"select proxies..."}
+      />
+    )
+}
 
 export const EditUserModal = ({ children, item }: EditUserModalProps) => {
     const [isOpened, setIsOpened] = useState(false);
@@ -62,6 +80,14 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
                                             <div>
                                                 <label htmlFor="userAgent" className="block mb-2 text-sm font-medium text-gray-900 ">userAgent</label>
                                                 <textarea {...field} name="userAgent" id="userAgent" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="provide a userAgent..." />
+                                            </div>
+                                        )}
+                                    </Field>
+                                    <Field name="proxies">
+                                        {(props: FieldProps) => (
+                                            <div>
+                                                <div className="block mb-2 text-sm font-medium text-gray-900 ">proxies</div>                                
+                                                <Proxies {...props} />
                                             </div>
                                         )}
                                     </Field>
