@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from './components/common/Modal/Modal.component';
-import { AccountsTable } from './components/features/AccountsTable/AccountsTable.components';
+import { AccountsTable } from './components/usecases/AccountsTable/AccountsTable.components';
 import { Container } from './components/layout/Container/Container.component';
 
 function App() {
