@@ -1,6 +1,5 @@
 import { Field, FieldProps, Form, Formik, FormikProps, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
-import { Account } from '../../../API/types';
 import { Modal } from '../../common/Modal/Modal.component';
 import { EditUserModalProps } from './EditUserModal.props';
 import * as Yup from 'yup'
@@ -9,6 +8,7 @@ import { Cookies } from '../Cookies/Cookies.component';
 import _ from 'lodash';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
+import { Account } from '../../../store/services/accounts/types';
 
 const initialValues: Account = {
     "_id": uuidv4(),
