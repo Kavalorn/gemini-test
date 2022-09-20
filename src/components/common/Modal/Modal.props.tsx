@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactNode } from "react";
 
 export interface ModalProps extends PropsWithChildren {
-    isOpen: boolean
+    isOpen: boolean,
+    className?: string
 }

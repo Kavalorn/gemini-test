@@ -12,6 +12,7 @@ import { Drawer, DrawerItem } from '../../common/Table/TableRow/Drawer/Drawer.co
 import { Account, GetAllAccountsResDto } from '../../../API/types'
 import { ConfirmUserDeleteModal } from '../ConfirmUserDeleteModal/ConfirmUserDeleteModal.component'
 import { ConfirmUserStatusModal } from '../ConfirmUserStatusModal/ConfirmUserStatusModal.component'
+import { EditUserModal } from '../EditUserModal/EditUserModal.component'
 export const AccountsTable = () => {
     return (
         <Table
@@ -23,29 +24,31 @@ export const AccountsTable = () => {
                 actions: "Actions",
             }}
             customHandlers={{
-                username: (item, {isExpanded, toggleExpand}) => {
+                username: (item, { isExpanded, toggleExpand }) => {
                     return <span onClick={toggleExpand}
-                    className={cn("cursor-pointer", {
-                        "font-bold": isExpanded
-                    })}>{item.username}</span>
+                        className={cn("cursor-pointer", {
+                            "font-bold": isExpanded
+                        })}>{item.username}</span>
                 },
                 password: (item) => {
                     return <PasswordCell password={item.password} id={item._id} />
                 },
-                actions: (item, {toggleExpand, isExpanded}) => {
+                actions: (item, { toggleExpand, isExpanded }) => {
                     return (
                         <div className='flex flex-row'>
                             <Action label="switch">
-                            <ConfirmUserStatusModal>
-                                {({toggleOpened}) => <Switch isChecked={!item.disabled} onChange={toggleOpened} className="" />}
-                            </ConfirmUserStatusModal>
+                                <ConfirmUserStatusModal>
+                                    {({ toggleOpened }) => <Switch isChecked={!item.disabled} onChange={toggleOpened} className="" />}
+                                </ConfirmUserStatusModal>
                             </Action>
                             <Action label="edit">
-                                <img src={pencilSvg} alt="" className='h-6 m-auto' />
+                                <EditUserModal item={item}>
+                                    {({ toggleOpened }) => <img src={pencilSvg} alt="" className='h-6 m-auto' onClick={toggleOpened} />}
+                                </EditUserModal>
                             </Action>
                             <Action label="delete">
                                 <ConfirmUserDeleteModal>
-                                    {({toggleOpened}) => <img src={trashSvg} alt="" className='h-6 m-auto' onClick={() => toggleOpened()} />}
+                                    {({ toggleOpened }) => <img src={trashSvg} alt="" className='h-6 m-auto' onClick={() => toggleOpened()} />}
                                 </ConfirmUserDeleteModal>
                             </Action>
                             <Action label="expand" onClick={toggleExpand}>
@@ -56,8 +59,8 @@ export const AccountsTable = () => {
                         </div>
                     )
                 }
-            }} 
-            drawer={({item, isExpanded}) => {
+            }}
+            drawer={({ item, isExpanded }) => {
                 return (
                     <Drawer isExpanded={isExpanded}>
                         <div className="flex mb-4">
@@ -75,19 +78,19 @@ export const AccountsTable = () => {
                                     <div>
                                         <div className='font-semibold'>{domain}</div>
                                         <ul className='mb-2'>
-                                        {item.cookies[domain].map(cookie => {
-                                            const {name, value, expires, httpOnly, path, secure} = cookie;
-                                            const cookieString: string[] = [];
-                                            cookieString.push(`${name}=${value}`)
-                                            if (path) cookieString.push("Path=" + path);
-                                            if (expires) cookieString.push('Expires=' + expires);
-                                            if (secure) cookieString.push('Secure');
-                                            if (httpOnly) cookieString.push('HttpOnly');
-                                            
-                                            return (
-                                                <li className='list-disc ml-5'>{cookieString.join("; ")}</li>
-                                            )
-                                        })}
+                                            {item.cookies[domain].map(cookie => {
+                                                const { name, value, expires, httpOnly, path, secure } = cookie;
+                                                const cookieString: string[] = [];
+                                                cookieString.push(`${name}=${value}`)
+                                                if (path) cookieString.push("Path=" + path);
+                                                if (expires) cookieString.push('Expires=' + expires);
+                                                if (secure) cookieString.push('Secure');
+                                                if (httpOnly) cookieString.push('HttpOnly');
+
+                                                return (
+                                                    <li className='list-disc ml-5'>{cookieString.join("; ")}</li>
+                                                )
+                                            })}
                                         </ul>
                                     </div>
                                 ))}
@@ -96,6 +99,6 @@ export const AccountsTable = () => {
                     </Drawer>
                 )
             }}
-            />
+        />
     )
 }
