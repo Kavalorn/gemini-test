@@ -52,7 +52,7 @@ export interface GenericErrorResDto {
 
 export function isErrorWithMessage(
     error: unknown
-  ): error is { message: string } {
+  ): error is { data: {message: string}} {
     return (
       typeof error === 'object' &&
       error != null &&

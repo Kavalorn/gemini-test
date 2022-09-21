@@ -11,6 +11,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { Account } from '../../../store/services/accounts/types';
 import { useGetProxiesQuery } from '../../../store/services/proxies/proxies';
 import { useAddAccountMutation, useUpdateAccountMutation } from '../../../store/services/accounts/accounts';
+import { showError } from '../../../misc/helpers';
+import { Button } from '../../common/Button/Button.component';
 
 const initialValues: Account = {
     "_id": "",
@@ -22,7 +24,11 @@ const initialValues: Account = {
   }
 
 export const Proxies = (props: FieldProps) => {
-    const {data = [], isLoading} = useGetProxiesQuery()
+    const {data = [], isLoading, error} = useGetProxiesQuery()
+
+    useEffect(() => {
+        showError(error)
+    }, [error]);
 
     return (
     <Select
@@ -41,12 +47,16 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
     const [isOpened, setIsOpened] = useState(false);
     const toggleOpened = () => setIsOpened(!isOpened);
 
-     const [updateAccount] = useUpdateAccountMutation()
-     const [addAccount] = useAddAccountMutation()
+     const [updateAccount, {error: updateAccountError, isLoading: updateAccountIsLoading}] = useUpdateAccountMutation()
+     const [addAccount, {error: addAccountError, isLoading: addAccountIsLoading}] = useAddAccountMutation()
 
      useEffect(() => {
-        console.log("item: ", item?.username);
-     })
+        showError(updateAccountError)
+    }, [updateAccountError]);
+
+    useEffect(() => {
+        showError(addAccountError)
+    }, [addAccountError]);
 
     const handleConfirm = (values: Account, helpers: FormikHelpers<Account>) => {
         if (item) {
@@ -130,7 +140,7 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
                                         </div>
                                     )}
                                     </Field>
-                                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Save</button>
+                                    <Button type={"submit"} loading={updateAccountIsLoading || addAccountIsLoading}>Save account</Button>
                                     {Object.keys(props.errors).length ? (<Alert>
                                         {Object.keys(props.errors).map(key => (<div>{(props.errors as {[key: string]: string})[key]}</div>))}
                                     </Alert>) : null}
