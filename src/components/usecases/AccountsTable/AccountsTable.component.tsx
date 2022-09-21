@@ -77,13 +77,13 @@ export const AccountsTable = () => {
                         </div>
                         <div className="flex mb-4">
                             <div className='font-bold w-2/12'>Proxies</div>
-                            <div className='w-10/12'>{item.proxies.map((proxy) => <span className='border border-black px-2 py-1 mr-2 font-semibold'>{proxy}</span>)}</div>
+                            <div className='w-10/12'>{item.proxies.map((proxy) => <span key={proxy} className='border border-black px-2 py-1 mr-2 font-semibold'>{proxy}</span>)}</div>
                         </div>
                         <div className="flex">
                             <div className='font-bold w-2/12'>Cookies</div>
                             <div className='w-10/12'>
                                 {Object.keys(item.cookies).map(domain => (
-                                    <div>
+                                    <div key={domain}>
                                         <div className='font-semibold'>{domain}</div>
                                         <ul className='mb-2'>
                                             {item.cookies[domain].map(cookie => {
@@ -96,7 +96,7 @@ export const AccountsTable = () => {
                                                 if (httpOnly) cookieString.push('HttpOnly');
 
                                                 return (
-                                                    <li className='list-disc ml-5'>{cookieString.join("; ")}</li>
+                                                    <li key={name} className='list-disc ml-5'>{cookieString.join("; ")}</li>
                                                 )
                                             })}
                                         </ul>

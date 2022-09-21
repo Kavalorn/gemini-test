@@ -49,6 +49,7 @@ export const DomainEditForm = ({ domainName, cookies, toggleEdit }) => {
             </div>
             {cookies[domainName].map((cookie, index) => (
               <Cookie
+                key={cookie.name}
                 domainName={domainName}
                 cookie={cookie}
                 cookieIndex={index}
@@ -312,7 +313,7 @@ export const Domain = ({ domainName, cookies, className = "" }) => {
           </div>
           <ul className="mb-2">
             {cookies[domainName].map((cookie, index) => (
-              <Cookie cookie={cookie} cookieIndex={index} />
+              <Cookie key={cookie.name} cookie={cookie} cookieIndex={index} />
             ))}
           </ul>
         </div>
@@ -402,7 +403,7 @@ export const Cookies = ({ cookies, className = "" }) => {
       {Object.keys(cookies)
         .sort((a, b) => (a <= b ? -1 : 1))
         .map((domain) => (
-          <Domain cookies={cookies} domainName={domain} />
+          <Domain key={domain} cookies={cookies} domainName={domain} />
         ))}
     </div>
   );

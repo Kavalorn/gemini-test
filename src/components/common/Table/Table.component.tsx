@@ -12,7 +12,7 @@ export const Table = <T extends GenericObject>({sortRows, headers, items, custom
     const _items = _.cloneDeep(items)
     if (sortRows) _items.sort(sortRows);
     return items.map((item, index) => {
-      return <TableRow item={item} headers={headers} customHandlers={customHandlers} drawer={drawer} className={cn({
+      return <TableRow key={item._id} item={item} headers={headers} customHandlers={customHandlers} drawer={drawer} className={cn({
         "bg-gray-50": !(index % 2)
       })} />
   })}

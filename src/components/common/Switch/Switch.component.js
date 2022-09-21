@@ -8,6 +8,7 @@ export const Switch = ({isChecked, onClick, id, className = ""}) => {
       <input
         checked={isChecked}
         onClick={onClick}
+        readOnly
         type="checkbox"
         id={id + "Switch"}
         className={styles.checkbox}

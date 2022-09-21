@@ -15,10 +15,10 @@ export const TableRow = <T extends GenericObject>({ item, headers, customHandler
 
   const renderCells = () => {
     return Object.keys(headers).map((header) => {
-      if (customHandlers && customHandlers[header]) return <Cell>{customHandlers[header]!(item, { toggleExpand, isExpanded })}</Cell>;
-      if (!item[header]) return <Cell>{null}</Cell>;
+      if (customHandlers && customHandlers[header]) return <Cell key={header}>{customHandlers[header]!(item, { toggleExpand, isExpanded })}</Cell>;
+      if (!item[header]) return <Cell key={header}>{null}</Cell>;
       return (
-        <Cell>{item[header]}</Cell>
+        <Cell key={header}>{item[header]}</Cell>
       );
     })
   }
