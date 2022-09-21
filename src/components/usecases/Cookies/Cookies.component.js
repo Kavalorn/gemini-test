@@ -49,7 +49,6 @@ export const DomainEditForm = ({ domainName, cookies, toggleEdit }) => {
             </div>
             {cookies[domainName].map((cookie, index) => (
               <Cookie
-                key={cookie.name}
                 domainName={domainName}
                 cookie={cookie}
                 cookieIndex={index}
@@ -95,7 +94,7 @@ export const CookieForm = ({ cookie, cookieIndex, domainName, toggleEdit }) => {
           <h3 className="mb-4 text-xl font-medium text-gray-900 ">
             Edit cookie
           </h3>
-          <form className="space-y-6">
+          <div className="space-y-6">
             <div>
               <label
                 htmlFor="name"
@@ -217,7 +216,7 @@ export const CookieForm = ({ cookie, cookieIndex, domainName, toggleEdit }) => {
                 Close
               </button>
             </div>
-          </form>
+          </div>
         </div>
       )}
     </Field>
@@ -345,7 +344,7 @@ export const AddDomainForm = ({ toggleForm }) => {
           <h3 className="mb-4 text-xl font-medium text-gray-900 ">
             Add domain
           </h3>
-          <form className="space-y-6">
+          <div className="space-y-6">
             <div>
               <label
                 htmlFor="name"
@@ -378,7 +377,7 @@ export const AddDomainForm = ({ toggleForm }) => {
                 Save
               </button>
             </div>
-          </form>
+          </div>
         </div>
       )}
     </Field>
