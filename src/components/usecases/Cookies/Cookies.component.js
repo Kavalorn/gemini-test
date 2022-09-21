@@ -23,7 +23,7 @@ export const DomainEditForm = ({ domainName, cookies, toggleEdit }) => {
   return (
     <Field name="cookies">
       {({ field, form }) => (
-        <div className="py-6 px-6 lg:px-8 border rounded-md my-4">
+        <div className="py-6 px-6 lg:px-8 border rounded-md my-4 shadow-md">
           <h3 className="mb-4 text-xl font-medium text-gray-900 ">
             Edit domain
           </h3>
@@ -90,7 +90,7 @@ export const CookieForm = ({ cookie, cookieIndex, domainName, toggleEdit }) => {
   return (
     <Field name={`cookies`}>
       {({ field, form }) => (
-        <div className="py-6 px-6 lg:px-8 border rounded-md my-4">
+        <div className="py-6 px-6 lg:px-8 border rounded-md my-4 shadow-md">
           <h3 className="mb-4 text-xl font-medium text-gray-900 ">
             Edit cookie
           </h3>
@@ -340,7 +340,7 @@ export const AddDomainForm = ({ toggleForm }) => {
   return (
     <Field name="cookies">
       {({ field, form }) => (
-        <div className="py-6 px-6 lg:px-8 border rounded-md my-4">
+        <div className="py-6 px-6 lg:px-8 border rounded-md my-4 shadow-md">
           <h3 className="mb-4 text-xl font-medium text-gray-900 ">
             Add domain
           </h3>

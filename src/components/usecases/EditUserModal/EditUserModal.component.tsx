@@ -8,7 +8,7 @@ import { Cookies } from '../Cookies/Cookies.component';
 import _ from 'lodash';
 import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
-import { Account } from '../../../store/services/accounts/types';
+import { Account, Cookie, ICookies } from '../../../store/services/accounts/types';
 import { useGetProxiesQuery } from '../../../store/services/proxies/proxies';
 import { useAddAccountMutation, useUpdateAccountMutation } from '../../../store/services/accounts/accounts';
 import { showError } from '../../../misc/helpers';
@@ -84,6 +84,16 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
                     username: Yup.string().required('field username should not be empty'),
                     password: Yup.string().required('field password should not be empty'),
                     userAgent: Yup.string().required('field userAgent should not be empty'),
+                    cookies: Yup.mixed().test({
+                        name: "cookies-with-label-and-value",
+                        message: "There shouldn`t be cookies without name or value in any domain",
+                        test: (object: ICookies) => {
+                          let result: boolean = true;
+                          const values = Object.keys(object).reduce<any>((acc, domain) => [...acc, ...object[domain]], []);
+                          result = (values as Cookie[]).some(cookie => !cookie.name || !cookie.value) ? false : true
+                          return result;
+                        },
+                      }),
                 })}
                 onSubmit={(values, helpers) => {
                     handleConfirm(values, helpers)

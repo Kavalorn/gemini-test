@@ -24,7 +24,7 @@ export interface Account {
     _id: string
     password: string
     proxies: string[]
-    cookies: Cookies
+    cookies: ICookies
     userAgent: string
     username: string
 }
@@ -33,7 +33,7 @@ export interface AccountWithDsiabled extends Account {
     disabled: boolean
 }
   
-export interface Cookies {
+export interface ICookies {
     [key: string]: Cookie[]
 }
 
