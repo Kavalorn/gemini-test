@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Switch } from '../../common/Switch/Switch.component'
 import { Table } from '../../common/Table/Table.component'
 import accounts from '../../../samples/accounts.json'
@@ -12,7 +12,7 @@ import { Drawer, DrawerItem } from '../../common/Table/TableRow/Drawer/Drawer.co
 import { ConfirmUserDeleteModal } from '../ConfirmUserDeleteModal/ConfirmUserDeleteModal.component'
 import { ConfirmUserStatusModal } from '../ConfirmUserStatusModal/ConfirmUserStatusModal.component'
 import { EditUserModal } from '../EditUserModal/EditUserModal.component'
-import { GetAllAccountsResDto } from '../../../store/services/accounts/types'
+import { Account, GetAllAccountsResDto } from '../../../store/services/accounts/types'
 import { useGetAllAccountsQuery } from '../../../store/services/accounts/accounts'
 import _ from 'lodash'
 export const AccountsTable = () => {

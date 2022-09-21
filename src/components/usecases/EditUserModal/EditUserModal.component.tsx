@@ -1,4 +1,4 @@
-import { Field, FieldProps, Form, Formik, FormikProps, useFormik } from 'formik';
+import { Field, FieldProps, Form, Formik, FormikHelpers, FormikProps, useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import { Modal } from '../../common/Modal/Modal.component';
 import { EditUserModalProps } from './EditUserModal.props';
@@ -10,9 +10,10 @@ import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import { Account } from '../../../store/services/accounts/types';
 import { useGetProxiesQuery } from '../../../store/services/proxies/proxies';
+import { useAddAccountMutation, useUpdateAccountMutation } from '../../../store/services/accounts/accounts';
 
 const initialValues: Account = {
-    "_id": uuidv4(),
+    "_id": "",
     "password": "",
     "proxies": [],
     "cookies": {},
@@ -40,10 +41,29 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
     const [isOpened, setIsOpened] = useState(false);
     const toggleOpened = () => setIsOpened(!isOpened);
 
-    const handleConfirm = (values: Account) => {
-        console.log('values: ', values);
-        toggleOpened()
+     const [updateAccount] = useUpdateAccountMutation()
+     const [addAccount] = useAddAccountMutation()
+
+     useEffect(() => {
+        console.log("item: ", item?.username);
+     })
+
+    const handleConfirm = (values: Account, helpers: FormikHelpers<Account>) => {
+        if (item) {
+            updateAccount(values)
+            .then(() => {
+                toggleOpened()
+            })
+        } else {
+            addAccount(values)
+            .then(() => {
+                toggleOpened()
+                helpers.resetForm()
+            })
+        }
     }
+
+    initialValues._id = uuidv4();
 
     return (
         <>
@@ -55,9 +75,10 @@ export const EditUserModal = ({ children, item }: EditUserModalProps) => {
                     password: Yup.string().required('field password should not be empty'),
                     userAgent: Yup.string().required('field userAgent should not be empty'),
                 })}
-                onSubmit={(values) => {
-                    handleConfirm(values)
+                onSubmit={(values, helpers) => {
+                    handleConfirm(values, helpers)
                 }}
+                enableReinitialize={true}
             >
             {(props: FormikProps<Account>) => (
                     <Modal isOpen={isOpened} className="w-10/12">

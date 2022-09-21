@@ -27,7 +27,11 @@ export interface Account {
     cookies: Cookies
     userAgent: string
     username: string
-  }
+}
+
+export interface AccountWithDsiabled extends Account {
+    disabled: boolean
+}
   
 export interface Cookies {
     [key: string]: Cookie[]
