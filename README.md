@@ -1,3 +1,25 @@
+# INFO FOR REVIEWER
+
+to change api url change variable REACT_APP_API_URL in .env at the root
+
+hello dear reviewer of this task!
+
+unfortunately i wasn`t made it as i wanted, but everything should work as expected.
+i know, not so fancy, but still not so bad for such amount of time.
+Table looks as it looks (according to the image) because i wanted to make it more generic. And didnt finished in time with styles.
+later commits looks uglyer because i was in a hurry, have some duties, and want to sleep sometimes, you know :)
+
+this project was made with create-react-app so you may run this project with this
+1. install nodejs (worked with last LTS 16.17)
+and from root directory of the project:
+2. npm install
+3. npm run start
+4. you will see url in the terminal after start.
+
+also discription below
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
