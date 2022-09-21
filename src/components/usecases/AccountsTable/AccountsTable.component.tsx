@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Switch } from '../../common/Switch/Switch.component'
 import { Table } from '../../common/Table/Table.component'
-import accounts from '../../../samples/accounts.json'
 import pencilSvg from '../../../assets/images/pencil.svg'
 import trashSvg from '../../../assets/images/trash.svg'
 import chevronSvg from '../../../assets/images/chevron.svg'
 import { Action } from '../../common/Action/Action.component'
 import { PasswordCell } from './PasswordCell.component'
 import cn from 'classnames'
-import { Drawer, DrawerItem } from '../../common/Table/TableRow/Drawer/Drawer.component'
+import { Drawer } from '../../common/Table/TableRow/Drawer/Drawer.component'
 import { ConfirmUserDeleteModal } from '../ConfirmUserDeleteModal/ConfirmUserDeleteModal.component'
 import { ConfirmUserStatusModal } from '../ConfirmUserStatusModal/ConfirmUserStatusModal.component'
 import { EditUserModal } from '../EditUserModal/EditUserModal.component'
-import { Account, GetAllAccountsResDto } from '../../../store/services/accounts/types'
 import { useGetAllAccountsQuery } from '../../../store/services/accounts/accounts'
 import _ from 'lodash'
+import { Spinner } from '../../common/Spinner/Spinner.component'
+import { showError } from '../../../misc/helpers'
 export const AccountsTable = () => {
-    const {data, isLoading} = useGetAllAccountsQuery();
+    const {data = [], isLoading, error, } = useGetAllAccountsQuery()
 
-    return isLoading ? <div>loading...</div> : (
+    useEffect(() => {
+        showError(error)
+    }, [error]);
+
+    return isLoading ? <Spinner className='h-16 w-16' /> : (
         <Table
             items={data || []}
             sortRows={(a, b) => a.username.toLocaleLowerCase() >= b.username.toLocaleLowerCase() ? 1 : -1}

@@ -49,3 +49,15 @@ export interface Cookie {
 export interface GenericErrorResDto {
     message: string
 }
+
+export function isErrorWithMessage(
+    error: unknown
+  ): error is { message: string } {
+    return (
+      typeof error === 'object' &&
+      error != null &&
+      'data' in error &&
+      'message' in (error as any).data &&
+      typeof (error as any).data.message === 'string'
+    )
+  }

@@ -4,6 +4,7 @@ import { TableRow } from './TableRow/TableRow.component'
 import { TableHead } from './TableHead/TableHead.component'
 import { GenericObject, TableProps } from './Table.props'
 import _ from 'lodash'
+import { Alert } from '../Alert/Alert.component'
 
 export const Table = <T extends GenericObject>({sortRows, headers, items, customHandlers, drawer = () => null, className, ...rest}: TableProps<T>) => {
 
@@ -16,7 +17,7 @@ export const Table = <T extends GenericObject>({sortRows, headers, items, custom
       })} />
   })}
 
-  return (
+  return !!items.length ? (
     <div className={cn("overflow-x-auto relative", className)} {...rest}>
       <table className="w-full text-sm text-left">
         <TableHead columnNames={headers} />
@@ -25,5 +26,5 @@ export const Table = <T extends GenericObject>({sortRows, headers, items, custom
         </tbody>
       </table>
     </div>
-  )
+  ) : <Alert color='blue'>Table is empty</Alert>
 }
