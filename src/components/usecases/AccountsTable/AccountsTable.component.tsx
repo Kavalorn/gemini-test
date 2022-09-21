@@ -41,8 +41,8 @@ export const AccountsTable = () => {
                     return (
                         <div className='flex flex-row'>
                             <Action label="switch">
-                                <ConfirmUserStatusModal item={_.cloneDeep(item)}>
-                                    {({ toggleOpened }) => <Switch isChecked={!item.disabled} onChange={() => toggleOpened()} />}
+                                <ConfirmUserStatusModal item={item}>
+                                    {({ toggleOpened }) => <Switch id={item._id} isChecked={!item.disabled} onClick={() => toggleOpened()} />}
                                 </ConfirmUserStatusModal>
                             </Action>
                             <Action label="edit">

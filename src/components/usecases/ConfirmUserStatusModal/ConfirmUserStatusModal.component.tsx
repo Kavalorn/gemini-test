@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSwitchAccountMutation } from '../../../store/services/accounts/accounts';
+import { useGetAllAccountsQuery, useSwitchAccountMutation } from '../../../store/services/accounts/accounts';
 import { Modal } from '../../common/Modal/Modal.component';
 import { ConfirmUserStatusModalProps } from './ConfirmUserStatusModal.props';
 
@@ -10,19 +10,18 @@ export const ConfirmUserStatusModal = ({children, item}: ConfirmUserStatusModalP
     const [ switchAccount ] = useSwitchAccountMutation();
 
     const handleConfirm = () => {
-      switchAccount({
-        disable: !item.disabled,
-        username: item.username
-      }).then(() => {
-        toggleOpened()
-      })
+        switchAccount({
+          disable: !item.disabled,
+          username: item.username
+        }).then(() => {
+          toggleOpened()
+        })
     }
 
   return (
     <>
       {children({toggleOpened})}
-      <Modal isOpen={isOpened}>
-      
+      {<Modal isOpen={isOpened}>
         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start">
             <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -32,9 +31,9 @@ export const ConfirmUserStatusModal = ({children, item}: ConfirmUserStatusModalP
               </svg>
             </div>
             <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-              <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title" onClick={() => console.log(item.username)}>Changing user status</h3>
+              <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">Changing user status</h3>
               <div className="mt-2">
-                <p className="text-sm text-gray-500">Are you sure you want to change status for this user?</p>
+                <p className="text-sm text-gray-500">Are you sure you want to change status for {item.username} account?</p>
               </div>
             </div>
           </div>
@@ -44,7 +43,7 @@ export const ConfirmUserStatusModal = ({children, item}: ConfirmUserStatusModalP
           <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm" onClick={toggleOpened}>Cancel</button>
         </div>
       
-      </Modal>
+      </Modal>}
     </>
   )
 }
